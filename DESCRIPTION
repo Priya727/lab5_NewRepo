@@ -11,7 +11,7 @@ Suggests:
     rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-Imports: tidyverse,magrittr,leaflet,rvest,knitr,dplyr,httr,jsonlite
+Imports: tidyverse,magrittr,leaflet,rvest,knitr,dplyr,httr,jsonlite,shiny
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
