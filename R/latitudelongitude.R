@@ -13,32 +13,22 @@
 #'   result <- lat_long("New York City")
 #'   print(result)
 #' }
-#' @export
-#' @import tidyverse
-#' @import magrittr
-#' @import leaflet
-#' @import rvest
-#' @import knitr
-#' @import dplyr
+
 #' @import httr
 #' @import jsonlite
-#' @import shiny
+#' @export
 
-lat_long<-function(loca_tion)
-{
+lat_long <- function(loca_tion) {
   loca_tion <- gsub(" ", "+", loca_tion) # replacing 'space' with '+' to get the location
-  X<-list(address=loca_tion) 
   url_lnk <- "https://nominatim.openstreetmap.org/search?q="
-  get_coords = paste0(url_lnk, loca_tion, "&format=geojson")
+  get_coords <- paste0(url_lnk, loca_tion, "&format=geojson")
   
-  response <- read_html(get_coords) %>%
-    html_node("p") %>%
-    html_text() %>%
-    fromJSON()
+  response <- httr::GET(get_coords) %>%
+    httr::content("text") %>%
+    jsonlite::fromJSON()
   
   lat <- response$features$geometry$coordinates[[1]][2]
   lon <- response$features$geometry$coordinates[[1]][1]
   
-  
-  list("latitude"=lat, "longitude" =lon)
+  list("latitude" = lat, "longitude" = lon)
 }
